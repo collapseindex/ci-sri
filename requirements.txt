@@ -1,0 +1,17 @@
+# Core dependencies for AG News SRI validation dataset generation
+datasets>=4.4.2
+transformers>=4.57.0
+torch>=2.0.0
+pandas>=2.0.0
+tqdm>=4.65.0
+numpy>=1.24.0
+
+# Perturbation generation
+nlpaug>=1.1.11
+nltk>=3.8.0
+
+# For SRI computation (if running validate_metrics_SRIDRAFT.py)
+scipy>=1.10.0
+
+# Optional: for faster inference
+# accelerate>=0.20.0
