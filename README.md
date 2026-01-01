@@ -120,6 +120,10 @@ For complete SRI + CI analysis (CSI failure mode typing, SRI grading, AUC curves
 - CSI failure mode classification (Type I-V)
 - SRI letter grading (A-F)
 - ROC/AUC curves
+- Distributions
+- Slice Cohorts
+- Full HTML report
+- Collapse Log raw row level data
 
 ## 📁 Files
 
@@ -180,3 +184,4 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
+
