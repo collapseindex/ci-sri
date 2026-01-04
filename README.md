@@ -49,7 +49,7 @@ Reproducible demonstration of **Structural Retention Index (SRI)** alongside Col
 **Key Insight:** CI + SRI = 1.0 exactly (perfect complementarity). SRI measures precisely what CI does not. Both achieve identical discriminative power (AUC=0.874), vastly outperforming confidence alone (AUC=0.171).
 
 **AG News Results:**
-- **479 Type I cases** 35: Stable errors - confidently wrong, no flips
+- **35 Type I cases** 35: Stable errors - confidently wrong, no flips
 - **20 Type II cases** 20: Hidden instability - internal shifts without label flips
 - **1 Type III case** 1: Moderate flip - elevated CI and degraded SRI (Grade C)
 - **Overall SRI Grade A** (0.981): Excellent structural retention across all types
@@ -184,5 +184,6 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
+
 
 
