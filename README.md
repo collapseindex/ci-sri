@@ -28,7 +28,7 @@ Reproducible demonstration of **Structural Retention Index (SRI)** alongside Col
 | **AUC(CI)** | 0.874 | Error discrimination via instability |
 | **AUC(SRI)** | 0.874 | Error discrimination via retention |
 | **AUC(Confidence)** | 0.171 | Baseline (vastly outperformed) |
-| **CSI Distribution** | 479/20/1/0/0 | Type I/II/III/IV/V breakdown |
+| **CSI Distribution** | 35/20/1/0/0 | Type I/II/III/IV/V breakdown |
 
 *Note: Advanced metrics require commercial licensing. Contact ask@collapseindex.org or visit [collapseindex.org/evals.html](https://collapseindex.org/evals.html)*
 
@@ -49,9 +49,9 @@ Reproducible demonstration of **Structural Retention Index (SRI)** alongside Col
 **Key Insight:** CI + SRI = 1.0 exactly (perfect complementarity). SRI measures precisely what CI does not. Both achieve identical discriminative power (AUC=0.874), vastly outperforming confidence alone (AUC=0.171).
 
 **AG News Results:**
-- **479 Type I cases** (95.8%): Stable errors - confidently wrong, no flips
-- **20 Type II cases** (4.0%): Hidden instability - internal shifts without label flips
-- **1 Type III case** (0.2%): Moderate flip - elevated CI and degraded SRI (Grade C)
+- **479 Type I cases** 35: Stable errors - confidently wrong, no flips
+- **20 Type II cases** 20: Hidden instability - internal shifts without label flips
+- **1 Type III case** 1: Moderate flip - elevated CI and degraded SRI (Grade C)
 - **Overall SRI Grade A** (0.981): Excellent structural retention across all types
 - **Error discrimination:** CI distinguishes errors 7.25× better than correct predictions; SRI shows 25.8% separation
 
@@ -184,4 +184,5 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
+
 
