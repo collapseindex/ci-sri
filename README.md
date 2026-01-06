@@ -45,7 +45,7 @@
 
 *Note: Advanced metrics require commercial licensing. Contact ask@collapseindex.org or visit [collapseindex.org/evals.html](https://collapseindex.org/evals.html)*
 
-## 📊 The SRI Story
+## 📊 The Story
 
 **Standard benchmarks say:** "Ship it! 90.8% accuracy."
 
@@ -226,3 +226,4 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
+
