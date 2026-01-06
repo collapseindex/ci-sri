@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-2.0.1-blue?style=flat-square)](https://github.com/collapseindex/ci-sri)
+[![Version](https://img.shields.io/badge/version-2.1.0-blue?style=flat-square)](https://github.com/collapseindex/ci-sri)
 [![SRI Paper](https://img.shields.io/badge/DOI-10.5281/zenodo.18016507-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.18016507)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
 
@@ -40,6 +40,8 @@
 | **AUC(CI)** | 0.874 | Error discrimination via instability |
 | **AUC(SRI)** | 0.874 | Error discrimination via retention |
 | **AUC(Confidence)** | 0.171 | Baseline (vastly outperformed) |
+| **Confidence Separation** | 0.028 | Weak (errors vs correct) |
+| **Trinity Verdict** | 🟡 Overconfident Stable | Low drift + high retention + miscalibrated confidence |
 | **CSI Error Distribution** | 35/10/1/0/0 | Type I/II/III/IV/V error counts |
 
 *Note: Advanced metrics require commercial licensing. Contact ask@collapseindex.org or visit [collapseindex.org/evals.html](https://collapseindex.org/evals.html)*
@@ -56,17 +58,18 @@
 
 *Classification thresholds remain proprietary to prevent adversarial optimization.*
 
-**Why SRI + CI matters:** SRI provides structural quality grading (A-F) orthogonal to CI severity typing. Together they reveal failure modes confidence alone misses.
+**Why Trinity (CI + SRI + Confidence) matters:** The three signals work together as a diagnostic system. SRI provides structural quality grading (A-F) orthogonal to CI severity typing. Confidence calibration reveals whether the model's self-reported certainty aligns with actual correctness.
 
-**Key Insight:** CI + SRI = 1.0 exactly (perfect complementarity). SRI measures precisely what CI does not. Both achieve identical discriminative power (AUC=0.874), vastly outperforming confidence alone (AUC=0.171).
+**Key Insight:** CI + SRI = 1.0 exactly (perfect complementarity). SRI measures precisely what CI does not. Both achieve identical discriminative power (AUC=0.874), vastly outperforming confidence alone (AUC=0.171). The AG News model shows **weak confidence separation (0.028)**, meaning confidence cannot distinguish errors from correct predictions—a classic "Overconfident Stable" profile.
 
 **AG News Results:**
+- **Trinity Verdict:** 🟡 Overconfident Stable (low drift + high retention + miscalibrated confidence)
 - **35 Type I errors** (76.1% of errors): Stable collapse - confidently wrong, no flips (most dangerous)
 - **10 Type II errors** (21.7% of errors): Hidden instability - internal shifts without label flips
 - **1 Type III error** (2.2% of errors): Moderate flip - elevated CI and degraded SRI (Grade C)
 - **Total errors:** 46/500 base examples (9.2% flip rate)
 - **Overall SRI Grade A** (0.981): Excellent structural retention across all types
-- **Error discrimination:** CI distinguishes errors 7.25× better than correct predictions; SRI shows 25.8% separation
+- **Error discrimination:** CI and SRI distinguish errors 7.25× better than correct predictions; confidence is near-random (AUC=0.171)
 
 **Note:** CSI types classify ERRORS ONLY. Of 500 total samples, 479 have CI ≤ 0.15 (includes 444 correct + 35 errors). CSI counts show the 35 errors in that range, not the 479 total.
 
@@ -122,7 +125,7 @@ This verifies metrics that don't require proprietary analysis:
 
 ### 4. Advanced Analysis (Proprietary)
 
-For complete SRI + CI analysis (CSI failure mode typing, SRI grading, AUC curves):
+For complete Trinity analysis (CI + SRI + Confidence calibration, CSI failure mode typing, SRI grading, AUC curves):
 
 ```bash
 # Commercial licensing required
@@ -132,9 +135,11 @@ For complete SRI + CI analysis (CSI failure mode typing, SRI grading, AUC curves
 **What's included in advanced analysis:**
 - Structural Retention Index (SRI) scores
 - Collapse Index (CI) scores  
+- Confidence calibration metrics
+- Trinity verdict (CI + SRI + Confidence)
 - CSI failure mode classification (Type I-V)
 - SRI letter grading (A-F)
-- ROC/AUC curves
+- ROC/AUC curves for all three signals
 
 ## 📁 Files
 
@@ -193,16 +198,17 @@ Please also cite the original AG News dataset:
 
 ## ⚖️ License
 
-- **This Repository (v2.0.0):** MIT License (code only)
+- **This Repository (v2.1.0):** MIT License (code only)
 - **SRI Methodology:** Proprietary - © 2025 Collapse Index Labs
 - **AG News Dataset:** Available via HuggingFace Datasets (cite original paper above)
 - **BERT Model:** Apache 2.0
 
-**Copyright © 2025 Collapse Index Labs - Alex Kwon. All rights reserved.**
+**Copyright © 2026 Collapse Index Labs - Alex Kwon. All rights reserved.**
 
 **Note:** This repository provides reproducible validation code for SRI research. The complete SRI implementation is proprietary. For commercial licensing, contact [ask@collapseindex.org](mailto:ask@collapseindex.org).
 
 **Version History:**
+- **v2.1.0** (Jan 2026) - **Trinity System Integration:** Added confidence calibration metrics and Trinity verdict (CI + SRI + Confidence) to results table. Updated documentation to explain three-signal diagnostic framework and "Overconfident Stable" profile (low drift + high retention + miscalibrated confidence). Confidence separation (0.028 weak) and AUC(Conf) 0.171 now prominently featured.
 - **v2.0.1** (Jan 2026) - **CORRECTION:** Fixed CSI type counts to show error counts (35/10/1) instead of total sample counts (479/20/1). Previous versions incorrectly reported total samples with CI ≤ 0.15 (479) rather than errors only (35). This was a reporting error; underlying analysis was correct. See commit history for details.
 - **v2.0.0** (Jan 2026) - Updated citation format, cross-validation references, improved documentation
 - **v1.0.0** (Dec 2025) - Initial public release with AG News validation
