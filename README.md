@@ -29,13 +29,13 @@
 | **Dataset Size** | 2,000 rows | 500 base × 4 variants each |
 | **Class Balance** | ~25% each | World, Sports, Business, Sci/Tech |
 
-**Advanced Metrics (Proprietary Pipeline):**
+**Advanced Diagnostics (Commercial Implementation):**
 
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **CI Score (avg)** | 0.019 | Prediction instability metric |
 | **SRI Score (avg)** | 0.981 | Structural retention metric |
-| **CI + SRI** | 1.000 | Perfect complementarity |
+| **CI + SRI** | 1.000 | Perfect complementarity* |
 | **AUC(CI)** | 0.874 | Error discrimination via instability |
 | **AUC(SRI)** | 0.874 | Error discrimination via retention |
 | **AUC(Conf)** | 0.829 | Confidence discriminates errors well |
@@ -43,9 +43,13 @@
 | **Trinity Verdict** | 🟢 Stable | Low drift + high retention + honest confidence |
 | **CSI Error Distribution** | 35/10/1/0/0 | Type I/II/III/IV/V error counts |
 
+*\*CI + SRI = 1.0 is empirical for this validation, not a theoretical identity.*
+
 *Note: Advanced metrics require commercial licensing. Contact ask@collapseindex.org or visit [collapseindex.org/evals.html](https://collapseindex.org/evals.html)*
 
-## 📊 The Story
+## 📊 The SRI Story
+
+**Important:** In this AG News validation, confidence is a reliable error signal (AUC=0.829). This makes AG News a useful control case: CI/SRI still add value by explaining *how* failures occur, even when confidence already works.
 
 **Standard benchmarks say:** "Ship it! 90.8% accuracy."
 
@@ -78,6 +82,8 @@
 - **Overall SRI Grade A** (0.981): Excellent structural retention
 
 **The Type I Problem:** 35 of 46 errors (76%) are Type I—confidently wrong with no behavioral instability. Confidence flags these as "probably wrong" (mean conf 0.964 vs 0.992 for correct), but CI/SRI reveal they're structurally stable failures. These are the hardest to fix: the model isn't confused, it's confidently mistaken.
+
+*Operational implication:* These errors would pass robustness tests, perturbation checks, and aggregate CI/SRI thresholds. They require domain rules, human review, or post-hoc constraints—not more training.
 
 **Note:** CSI types classify ERRORS ONLY. Of 500 total samples, 479 have CI ≤ 0.15 (includes 444 correct + 35 errors). CSI counts show the 35 errors in that range, not the 479 total.
 
@@ -226,4 +232,3 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
-
