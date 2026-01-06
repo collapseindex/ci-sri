@@ -6,9 +6,9 @@ This script verifies basic metrics that can be calculated without
 proprietary analysis pipelines:
 - Flip rate: percentage of examples with inconsistent predictions
 - Overall accuracy: model correctness across all variants
-- Confidence distribution: how confidence differs between correct/incorrect predictions
+- Confidence AUC: how well confidence discriminates errors from correct predictions
 
-Advanced metrics require full analysis pipeline (not included).
+Advanced metrics (CI, SRI, CSI) require full analysis pipeline (not included).
 
 Usage:
     python validate_metrics.py
@@ -17,6 +17,7 @@ Author: Alex Kwon (Collapse Index Labs)
 License: MIT
 """
 import pandas as pd
+from sklearn.metrics import roc_auc_score
 
 # Load dataset
 df = pd.read_csv('agnews_ci_sri_demo.csv')
@@ -84,18 +85,24 @@ for label in ['World', 'Sports', 'Business', 'Sci/Tech']:
     count = (base_df['true_label'] == label).sum()
     print(f"  {label:12s}: {count:3d} ({count/len(base_df)*100:4.1f}%)")
 
-# Confidence distribution
+# Confidence AUC (BASE EXAMPLES ONLY - canonical for CI/SRI analysis)
 print("\n" + "=" * 60)
-print("✓ CONFIDENCE DISTRIBUTION")
+print("✓ CONFIDENCE AUC (independently verifiable)")
 print("=" * 60)
-errors_df = df[df['is_error'] == 1]
-correct_df = df[df['is_error'] == 0]
-print(f"Errors ({len(errors_df)} samples):")
-print(f"  Mean confidence: {errors_df['confidence'].mean():.4f}")
-print(f"Correct ({len(correct_df)} samples):")
-print(f"  Mean confidence: {correct_df['confidence'].mean():.4f}")
-print(f"Gap: {correct_df['confidence'].mean() - errors_df['confidence'].mean():.4f}")
-print("\n→ Small gap confirms confidence alone is insufficient")
+print("NOTE: Computed on base examples only (canonical for CI/SRI)")
+
+base_errors_df = base_df[base_df['is_error'] == 1]
+base_correct_df = base_df[base_df['is_error'] == 0]
+
+# Compute AUC: higher confidence should predict correct (is_error=0)
+# So we predict is_correct = 1 - is_error, using confidence as the score
+is_correct = 1 - base_df['is_error']
+auc_conf = roc_auc_score(is_correct, base_df['confidence'])
+
+print(f"Errors: {len(base_errors_df)} samples (mean conf: {base_errors_df['confidence'].mean():.4f})")
+print(f"Correct: {len(base_correct_df)} samples (mean conf: {base_correct_df['confidence'].mean():.4f})")
+print(f"AUC(Conf): {auc_conf:.3f}")
+print("\n→ AUC > 0.5 means higher confidence correlates with correctness")
 
 # Advanced metrics notice
 print("\n" + "=" * 60)
@@ -115,8 +122,9 @@ print("=" * 60)
 print(f"✓ Flip rate: {flip_rate:.1f}%")
 print(f"✓ Base accuracy: {base_accuracy:.1f}%")
 print(f"✓ Overall accuracy: {overall_accuracy:.1f}%")
+print(f"✓ AUC(Conf): {auc_conf:.3f}")
 print(f"✓ Dataset is reproducible and verifiable")
-print("⚠ Advanced metrics require proprietary pipeline")
+print("⚠ Advanced metrics (CI, SRI, CSI) require proprietary pipeline")
 print("=" * 60)
 
 
