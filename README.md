@@ -213,7 +213,7 @@ Please also cite the original AG News dataset:
 ## ⚖️ License
 
 - **This Repository (v2.2.0):** MIT License (code only)
-- **CI/SRI Methodology:** Proprietary - © 2025 Collapse Index Labs - Alex Kwon
+- **CI + SRI Methodology:** [Proprietary](https://github.com/collapseindex/collapseindex/blob/main/LICENSE.md) - (c) 2026 Collapse Index Labs - Alex Kwon
 - **AG News Dataset:** Available via HuggingFace Datasets (cite original paper above)
 - **BERT Model:** Apache 2.0
 
@@ -232,4 +232,5 @@ Please also cite the original AG News dataset:
 ## 📧 Contact
 
 Questions? Email [ask@collapseindex.org](mailto:ask@collapseindex.org)
+
 
